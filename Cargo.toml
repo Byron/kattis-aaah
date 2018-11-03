@@ -1,15 +1,11 @@
 [package]
-name = "foobar"
+name = "aaah"
 version = "1.0.0"
 authors = ["Sebastian Thiel <byronimo@gmail.com>"]
 publish = false
 
-[dependencies]
-failure = "0.1.1"
-failure-tools = "4.0.2"
-
 [[bin]]
-name="foobar"
+name="aaah"
 path="src/main.rs"
 
 [profile.release]

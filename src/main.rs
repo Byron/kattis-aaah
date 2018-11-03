@@ -1,25 +1,29 @@
-#[macro_use]
-extern crate failure;
-extern crate failure_tools;
-extern crate foobar;
+use std::{process, io::{self, BufRead, Write, stdout, stdin}};
 
-use std::{env, fs::File};
-use failure_tools::ok_or_exit;
-use failure::{Error, ResultExt};
-
-fn run() -> Result<(), Error> {
-    let filename = env::args().nth(1).ok_or_else(|| {
-        format_err!(
-            "USAGE: {} <input>\n\nWhere <input> is the input file with statements",
-            env::args().next().expect("program name")
-        )
-    })?;
-    let input_stream = File::open(&filename)
-        .with_context(|_| format_err!("Could not open '{}' for reading", filename))?;
-
-    foobar::fun()
+fn aaahs_of(input: &str) -> usize {
+    input.chars().filter(|&c| c == 'a').count()
 }
 
-fn main() {
-    ok_or_exit(run())
+fn main() -> Result<(), io::Error> {
+    let (stdin, stdout) = (stdin(), stdout());
+    let (mut stdin_lock, mut stdout_lock) = (stdin.lock(), stdout.lock());
+
+    let mut first_line = String::new();
+    let mut second_line = String::new();
+    loop {
+        first_line.clear();
+        second_line.clear();
+        stdin_lock.read_line(&mut first_line)?;
+        stdin_lock.read_line(&mut second_line)?;
+
+        match (first_line.len(), second_line.len()) {
+            (0, 0) => process::exit(0),
+            (_, 0) => {eprintln!("input exhausted prematurely"); process::exit(2)}
+            _ => if aaahs_of(&first_line) >= aaahs_of(&second_line) {
+                writeln!(stdout_lock, "go")?;
+            } else {
+                writeln!(stdout_lock, "no")?;
+            }
+        }
+    }
 }
