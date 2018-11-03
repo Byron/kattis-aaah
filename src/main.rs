@@ -7,7 +7,7 @@ fn validate_aaah(input: &str) {
             if c == '\n'{
                 return
             };
-            eprintln!("invalid 'aaah' due to characters after 'h' in '{}'", input);
+            eprintln!("invalid 'aaah' due to characters after 'h' in '{}'", input.trim_right());
             process::exit(3);
         }
         match c {
@@ -17,7 +17,7 @@ fn validate_aaah(input: &str) {
                 continue;
             }
             _ => {
-                eprintln!("invalid 'aaah' due to character which was not 'a' or 'h' in '{}'", input);
+                eprintln!("invalid 'aaah' due to character which was not 'a' or 'h' in '{}', or no h was encountered", input.trim_right());
                 process::exit(3);
             }
         };
