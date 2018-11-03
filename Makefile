@@ -31,7 +31,7 @@ profile: target/release/aaah
 	callgrind_annotate --auto=yes callgrind.profile
 
 benchmark: target/release/aaah
-	hyperfine '$<'
+	hyperfine '$<' < tests/fixtures/aaaaaah.input
 
 journey-tests: target/debug/aaah
 	./tests/stateless-journey.sh $<

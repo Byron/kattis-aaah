@@ -10,7 +10,6 @@ snapshot="$root/snapshots"
 fixture="$root/fixtures"
 
 SUCCESSFULLY=0
-WITH_FAILURE=1
 
 (with "input from stdin"
   (when "the input is well formed"
